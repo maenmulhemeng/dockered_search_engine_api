@@ -17,6 +17,15 @@ The target here is not showing a complete user friendly flask application, rathe
 4. Showing how we can run a thread in Python (Flask)
 
 # How to Run
+At the begingin, make sure that you created your own `.env` file and list the following configuration inside it :
+
+```
+POSTGRES_HOST: db
+POSTGRES_DB: mytest
+POSTGRES_USER: postgres
+POSTGRESS_PASSWORD: test123
+CRAWLER_RUN: no
+```
 First you should be sure you run PostgreSQL inmage and the database with the specified name is craeted and the required user to access the database is created and granted the privillage to do all opertaions from creating the sche,e
 to apply the CRUD operations. 
 

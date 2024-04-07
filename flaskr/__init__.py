@@ -37,6 +37,7 @@ def create_app(test_config=None):
     DB_NAME = os.environ.get("POSTGRES_DB", None)
     DB_USER = os.environ.get("POSTGRES_USER", None)
     DB_PASSWORD = os.environ.get("POSTGRESS_PASSWORD", None)
+    print("The HOST is ", DB_HOST)
     CRAWLER_RUN = True if os.environ.get("CRAWLER_RUN", None) == "yes" else False
     CRAWLER_INTERVAL = float(os.environ.get("CRAWLER_INTERVAL", None)) if CRAWLER_RUN else 0
     app.config.from_mapping(
