@@ -36,12 +36,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: db_initalizer  
-    environment:
-      POSTGRES_HOST: db
-      POSTGRES_DB: mytest
-      POSTGRES_USER: postgres
-      POSTGRESS_PASSWORD: test123
-      CRAWLER_RUN: no
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
