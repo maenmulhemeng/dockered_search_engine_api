@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:alpine3.19
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: test123
+      POSTGRES_DB: mytest
+    volumes:
+      - search_engine_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d mytest'"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    ports:
+      - 5000:5000  
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: mytest
+      POSTGRES_USER: postgres
+      POSTGRESS_PASSWORD: test123
+      CRAWLER_RUN: yes
+      CRAWLER_INTERVAL: 60
+    depends_on:
+      db:
+        condition: service_healthy
+  db_initializer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: db_initalizer  
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: mytest
+      POSTGRES_USER: postgres
+      POSTGRESS_PASSWORD: test123
+      CRAWLER_RUN: no
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  search_engine_db:
+
+  

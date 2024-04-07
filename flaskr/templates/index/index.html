@@ -1,0 +1,10 @@
+Hello Ya {{session['user_id']}}
+<a href={{url_for('auth.login')}}>Login</a>
+
+<form method="post" action="search" >
+    <div>
+        <label for="searchQuery">What are you looking for: </label>
+        <input type="text" id="searchQuery" name="searchQuery"/>
+    </div>
+    <input type="submit" value="Search" />
+</form>
