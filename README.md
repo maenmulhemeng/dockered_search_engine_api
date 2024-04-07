@@ -17,20 +17,32 @@ The target here is not showing a complete user friendly flask application, rathe
 4. Showing how we can run a thread in Python (Flask)
 
 # How to Run
-At the begingin, make sure that you created your own `.env` file and list the following configuration inside it :
+For security reason, I excluded `.env` from the repository `.gitignore` and from the image `.dockerignore` . At the beging, make sure that you created your own `.env` file and list the following configuration inside it :
 
 ```
-POSTGRES_HOST: db
-POSTGRES_DB: mytest
-POSTGRES_USER: postgres
-POSTGRESS_PASSWORD: test123
-CRAWLER_RUN: no
+POSTGRES_HOST: YOUR_DATABASE_HOST
+POSTGRES_DB: YOU_DATABSE_NAME
+POSTGRES_USER: YOUR_DATABASE_USER
+POSTGRESS_PASSWORD: YOUR_DATABASE_PASSWORD
+CRAWLER_RUN: YES_NO_VALUE_TO_RUN_THE_THREAD_OR_NOT
 ```
-First you should be sure you run PostgreSQL inmage and the database with the specified name is craeted and the required user to access the database is created and granted the privillage to do all opertaions from creating the sche,e
+
+## Running YAML
+Then you can run `docker compose up -d` and you can check how the Flask console shows you the retrived data by the thread. Of course you can check these data in PostgreSQL and query this data. There is a naive UI built here to allow the user to query the data and it will popup once you navigate to the running flask website i.e most probably it's be https://localhost:5000 
+
+## Running docker indepedently 
+Or you can pass these enviroment variables to docker run command and that's in case you wanted to run the Flask image independently using 
+
+`docker run --env-file .env IMGAE_NAME` 
+
+or you can pass the environemtn varaibles 
+
+` docker container run -e POSTGRES_HOST='YOU_DB_HOST' POSTGRES_DB='YOU_DB_NAME' POSTGRES_USER='YOUR_DB_USER' POSTGRESS_PASSWORD='YOU_DB_PASSWORD' YOUR_IMAGE_NAME` 
+
+
+First be sure you run PostgreSQL inmage. The database with the specified name is craeted and the required user to access the database is created and granted the privillage to do all opertaions from creating the such,e
 to apply the CRUD operations. 
 
-Then you can run `docker compose up -d` and then you can check how the Flask console shows you the retrived data by the thread and od course you can check these data in PostgreSQL and you can query this data from the simple you 
-provided. 
 
 # To DO: Front End
 Later, I'll publish a React project that allows the user to access this API on github and list the link here . 
