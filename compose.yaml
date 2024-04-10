@@ -5,8 +5,10 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: test123
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_passwd
       POSTGRES_DB: mytest
+    secrets:
+       - postgres_passwd
     volumes:
       - search_engine_db:/var/lib/postgresql/data
     healthcheck:
@@ -25,7 +27,7 @@ services:
       POSTGRES_HOST: db
       POSTGRES_DB: mytest
       POSTGRES_USER: postgres
-      POSTGRESS_PASSWORD: test123
+      POSTGRES_PASSWORD: test123
       CRAWLER_RUN: yes
       CRAWLER_INTERVAL: 60
     depends_on:
@@ -43,5 +45,7 @@ services:
         condition: service_healthy
 volumes:
   search_engine_db:
-
+secrets:
+  postgres_passwd:
+    file: passwd.txt
   
